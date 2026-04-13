@@ -64,8 +64,14 @@
 
   <script>
   const params = new URLSearchParams(window.location.search);
-  const invoice = params.get("invoice");
-  const receipt = params.get("receipt");
+
+  function doubleDecode(url) {
+    if (!url) return null;
+    return decodeURIComponent(decodeURIComponent(url));
+  }
+
+  const invoice = doubleDecode(params.get("invoice"));
+  const receipt = doubleDecode(params.get("receipt"));
 
   function renderFile(url, containerId) {
     const container = document.getElementById(containerId);
@@ -77,14 +83,7 @@
 
     if (url.includes(".pdf")) {
       container.innerHTML = `
-        <div style="padding:20px; text-align:center;">
-          <p>Preview tidak tersedia</p>
-          <a href="${url}" target="_blank">
-            <button style="padding:10px 20px; font-size:16px;">
-              Buka / Download PDF
-            </button>
-          </a>
-        </div>
+        <iframe src="${url}"></iframe>
       `;
     } else {
       container.innerHTML = `<img src="${url}" />`;
