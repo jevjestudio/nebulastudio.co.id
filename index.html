@@ -62,7 +62,7 @@
       
     </script>
 
-    <script>
+   <script>
   const params = new URLSearchParams(window.location.search);
   const invoice = params.get("invoice");
   const receipt = params.get("receipt");
@@ -76,7 +76,9 @@
     }
 
     if (url.includes(".pdf")) {
-      container.innerHTML = `<iframe src="${url}"></iframe>`;
+      container.innerHTML = `
+        <iframe src="https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(url)}"></iframe>
+      `;
     } else {
       container.innerHTML = `<img src="${url}" />`;
     }
